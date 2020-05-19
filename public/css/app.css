@@ -1,0 +1,232 @@
+@font-face { font-size: inherit; font-family:'Century-Thin'; src: url(fonts/Century-Goth-Thin.ttf);
+}
+html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: url(../images/splash-bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    font-family:  "Segoe UI" !important;
+    overflow-x: hidden;
+}
+*, a, [href]  {
+    outline: none !important;
+    text-decoration: none !important;
+}
+section.App {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(130deg, rgb(243, 27, 203, .8), 40%, rgba(0, 153, 255, .3));
+}
+.App header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 100;
+    padding: 10px;
+    padding-left: 50px;
+    color: #eee;
+    background: transparent;
+    box-shadow: 0px 0px 30px 0px rgba(0,0,0,.2);
+    font-family:'Century-Thin';
+}
+.App header img {
+    border-radius: 100px;
+}
+.App header span {
+    position: relative;
+    top: 3px;
+    margin-left: 5px;
+}
+.App .splash {
+    position: relative;
+    margin-top: 20vh;
+    width: 100%;
+    color: #fff;
+    font-family:'Century-Thin';
+}
+.App .splash h2 span {
+    float: right;
+}
+.App .splash h2 span button {
+    width: 120px;
+    height: 40px;
+    background: #fff;
+    border: none;
+    border-radius: 100px;
+    font-size: small;
+}
+.App .splash h2 span .active {
+    color: #fff;
+    background: rgb(216, 30, 176);
+}
+.App .splash p {
+    width: 800px;
+    margin-top: 20px;
+    letter-spacing: 1px;
+}
+.App .splash .card {
+    height: 220px;
+    padding: 20px;
+    cursor: pointer;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.App .splash .card i {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 50px;
+}
+.App .splash .card span {
+    float: none;
+}
+.App .splash .card p {
+    width: 100%;
+    font-size: small;
+    letter-spacing: normal !important;
+}
+.App .splash .card:hover {
+    color: #fff !important;
+    background: transparent !important;
+    box-shadow: 0px 0px 5px 0px #000;
+}
+.App .subscribe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background: #fff;
+    opacity: .0;
+    transform: scale(0.8);
+    visibility: hidden;
+    transition: 0.5s ease-in-out;
+}
+.App .subscribe.show {
+    opacity: 1;
+    transform: scale(1.0);
+    visibility: visible;
+}
+.App .subscribe form {
+    position: absolute;
+    left: 100%;
+    margin: auto;
+    margin-top: 10%;
+    width: 500px;
+    height: 500px;
+    opacity: .0;
+    transition: 0.5s ease-in-out;
+}
+.App .subscribe h2 span   {
+    font-size: 25px;
+}
+.App .subscribe form.show {
+    left: 30vw !important;
+    opacity: 1 !important;
+}
+.App .subscribe form.hide {
+    left: -100% !important;
+    opacity: 0 !important;
+}
+.App .subscribe form#provider {
+    left: 30vw;
+    opacity: 1;
+}
+.App .subscribe form h2
+,
+.App .subscribe form h4 {
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+    font-size: 20px;
+    font-family:'Century-Thin';
+}
+.App .subscribe form h4 {
+    height: auto;
+    font-size: 15px;
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+.App .subscribe form input
+,
+.App .subscribe form select {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    padding-left: 30px;
+    margin-bottom: 33px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    outline: none !important;
+    box-shadow: none;
+    font-size: small;
+    font-family:'Century-Thin';
+}
+.App .subscribe form [readonly] {
+    background: #f6f6f6;
+    cursor: not-allowed;
+}
+.App .subscribe form i {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    padding-top: 8px;
+    text-align: center;
+}
+.App .subscribe form button {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border-radius: 100px;
+    border: none;
+    color: #fff;
+    background: #06f;
+    font-size: small;
+    font-family:'Century-Thin';
+}
+.App .subscribe form#verified i {
+    display: block;
+    position: relative;
+    width: 100px;
+    height: auto;
+    margin: auto;
+    margin-top: 50px;
+    font-size: 100px;
+    color: #090;
+}
+.App .subscribe form#verified p {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    color: #090;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-family:'Century-Thin';
+}
+.App .subscribe form#verified a {
+    position: relative;
+    display: block;
+    width: 150px;
+    height: 40px;
+    padding: 10px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 100px;
+    text-align: center;
+    color: #fff;
+    background: #09f;
+    font-size: small;
+    font-family:'Century-Thin';
+}
