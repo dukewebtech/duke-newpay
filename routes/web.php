@@ -13,11 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/m', function () {
     return view('index');
 });
-Route::get('/m','PageController@index');
-Route::get('/service-types/{serviceType}','PageController@showBouquets');
+Route::get('/','BillerController@index');
+Route::get('/service-types/{serviceType}/bouquets','BillerController@showBouquets');

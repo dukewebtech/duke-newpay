@@ -30,14 +30,11 @@
 
             <div class="row" id="service-splash">
 
-                @foreach($serviceTypes as $serviceType)
+                @foreach($billers as $biller)
                 <div class="col-md-4 col-lg-4">
-                        <div class="card" style="color: rgb(255, 255, 255); background: rgb(238, 204, 17); display: flex;" data-provider="" data-service="">
-
-
+                    <div class="card" style="color: rgb(255, 255, 255); background: rgb(238, 204, 17); display: flex;" data-service-type="{{$biller["serviceType"] }}" data-display-name="{{ $biller["displayName"] }}">
                         <i class="fa fa-tv"></i>
-                       <span>{{$serviceType}}</span>
-
+                        <span>{{ $biller["displayName"] }}</span>
                     </div>
                 </div>
                 @endforeach
@@ -50,4 +47,9 @@
 
 </section>
 </body>
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
 </html>

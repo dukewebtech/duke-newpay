@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\BaxiService;
-class PageController extends Controller
+class BillerController extends Controller
 {
     /**
      * @var BaxiService
@@ -25,14 +25,25 @@ class PageController extends Controller
     }
     public function index()
     {
-        $serviceTypes = ['DSTV','GOTV','STARTIMES'];
+        $billers = [
+            [
+                "serviceType" => "dstv",
+                "displayName" => "DSTV Subscription",
+                "logo" => "",
+            ],
+            [
+                "serviceType" => "gotv",
+                "displayName" => "GOTV Subscription",
+                "logo" => ""
+            ],
+            [
+                "serviceType" => "startimes",
+                "displayName" => "STARTIMES Subscription",
+                "logo" => ""
+            ]
+        ];
 
-
-
-        return view('index',compact('serviceTypes'));
-
-
-
+        return view('index', compact('billers'));
     }
 
     public function showBouquets(string $serviceType)

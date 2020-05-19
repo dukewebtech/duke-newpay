@@ -1,4 +1,4 @@
-$(document).ready(function(e){
+$(document).ready(function(e) {
 
     //1: Provider Effects
     $('.App .splash .card').stop(true).hide(0);
@@ -13,117 +13,100 @@ $(document).ready(function(e){
 
     //2: Provider Request
     let subscription = {};
-    $('.App .splash .card').on('click', function(e){
-        let providerId = $.trim($(this).data('provider'));
-        let serviceTag = $.trim($(this).data('service' ));
+    $('.App .splash .card').click(function() {
+        let serviceType = $.trim($(this).data('service-type'));
+        let displayName = $.trim($(this).data('display-name'));
 
         $('.App .subscribe').stop(true).addClass('show') ;
-        $('.App .subscribe form#provider [data-provider]').text (serviceTag)
-        $('form#provider [name=provider]').val(providerId)
-        
-        return bouqetsProvider(providerId);
+        $('.App .subscribe form#provider [data-provider]').text(displayName);
+        $('form#provider [name=provider]').val("providerId");
+
+        $("#displayName").text(displayName);
+
+        return bouquetsProvider(serviceType);
     });
 
-    $('form#provider [name=provider]').on('change, input', function(e)     {
+    $('#billers').change(function() {
         let providerId = $.trim($(this).val());
-        let serviceTag = $.trim($('[name=provider] option:selected').text())
-        $('.App .subscribe form#provider [data-provider]').text (serviceTag)
+        let serviceTag = $.trim($('[name=provider] option:selected').text());
+        $('.App .subscribe form#provider [data-provider]').text (serviceTag);
 
-        return bouqetsProvider(providerId);
+        return bouquetsProvider(providerId);
     });
 
-    const bouqetsProvider = (providerId)  => {    
-        subscription = {};    
-        $('form#provider [name=bouqets]').html
-                   ('<option value="" selected disabled >Bouqets </option>')
-        $('form#provider [name=package]').html
-                   ('<option value="" selected disabled >Packages</option>')
-        $('form#provider [name=month]'  ).val('') //////////////////////////
-        $('form#provider [name=costs]'  ).val('') //////////////////////////
+    const bouquetsProvider = (serviceType)  => {
 
-        let data = {
-            'provider' : providerId
-        };
+        let url = "/service-types/" + serviceType + "/bouquets";
         $.ajax({
-            type: "POST",
-            data: (data),
-            url: "?api/baxi/bouqet",
-            success: function(response){
-                response=JSON.parse(response.trim(  ))
+            type: "GET",
+            url: url,
+            success: function(response) {
 
-                if(response['bouqets'].length > 0)   {
-                    for(i in response['bouqets'] )   {
-                        $('[name=bouqets]').append(build('#bouqetModel',   {
-                            'id' : response['bouqets'][i]['id'],
-                            'bouquet' : response['bouqets'][i]['bouquet']  ,
-                        }));
-                    }
-                }
+                let $bouquets = $("#bouquets");
+                $bouquets.find('option').remove(); // clears the list
+                $bouquets.append(new Option("Select", "", true));
+
+                $.each(response.data, function (index, bouquet) {
+
+                    let option = $("<option>")
+                        .val(bouquet.code)
+                        .text(bouquet.name)
+                        .attr("data-price-options", JSON.stringify(bouquet.availablePricingOptions));
+
+                    $bouquets.append(option);
+                });
             }
         });
-        subscription['provider'] = providerId;
     };
 
     //3: Bouqet Requests
-    $('form#provider [name=bouqets]' ).on('change, input', function(e)     {
-        let bouqetId = $.trim($(this).val());
+    $("#bouquets").change(function() {
+        let priceOptions = $(this).find(':selected').data("price-options");
 
-        return packageProvider(bouqetId);
+        let $duration = $("#duration");
+        $duration.find('option').remove(); // clears the list
+        $duration.append(new Option("Select", "", true));
+
+        $.each(priceOptions, function (index, priceOption) {
+
+            let month = priceOption.monthsPaidFor === 1 ? " Month " : " Months ";
+
+            let text = priceOption.monthsPaidFor + month + "(" + addCommas(priceOption.price) + ")";
+            let option = $("<option />")
+                .val(priceOption.monthsPaidFor)
+                .text(text)
+                .attr("data-amount", priceOption.price);
+
+            $duration.append(option);
+        });
     });
 
-    const packageProvider = (bouqetId)  => {        
-        $('form#provider [name=package]').html
-                   ('<option value="" selected disabled >Packages</option>');
-        
-        let data = {
-            'bouqetId' : bouqetId
-        };
-        $.ajax({
-            type: "POST",
-            data: (data),
-            url: "?api/baxi/packages",
-            success: function(response){
-                response=JSON.parse(response.trim(  ))
+    $("#duration").change(function () {
+        $("#amount").val($(this).find(':selected').data("amount"));
+    });
 
-                if(response['package'].length > 0)   {
-                    for(i in response['package'] )   {
-                        $('[name=package]').append(build('#packageModel',  {
-                            'id' : response['package'][i]['id'],
-                            'package' : response['package'][i]['package']  ,
-                            'month' : response['package'][i]['duration']   ,
-                            'charges' : response['package'][i]['total_cost']
-                        }));
-                    }
-                }
-            }
-        });
-        subscription['bouqet'] = bouqetId;
-    };
-    
     $('form#provider [name=package]' ).on('change, input', function(e)     {
-        let month = $('[name=package] option:selected').data ('month')
-        let costs = $('[name=package] option:selected').data ('costs')
+        let month = $('[name=package] option:selected').data ('month');
+        let costs = $('[name=package] option:selected').data ('costs');
 
         $('[name=month').val(' '+month);
         $('[name=costs').val('N'+costs);
 
         subscription['package'] = $(this).val().trim(   );
-        ////////////////////////////////////////////////////////////////////
+
     });
 
     //4: Continue Controls
     $('form#provider button[name="continue"]').on('click', function(e)     {
-        if(subscription['provider'] == undefined){
-            return alert("You haven't selected any Provider");
-        }
-        if(subscription['bouqet']   == undefined){
-            return alert("You haven't selected any Bouqet  ");
-        }
-        if(subscription['package']  == undefined){
-            return alert("You havent't selected any Package");
-        }
-        $('form#provider').addClass   ('hide'); /////////////////////////////
-        $('form#billings').addClass   ('show'); /////////////////////////////
+
+        // if(subscription['bouquet']   == undefined){
+        //     return alert("You haven't selected any Bouqet  ");
+        // }
+        // if(subscription['package']  == undefined){
+        //     return alert("You havent't selected any Package");
+        // }
+        $('form#provider').addClass   ('hide');
+        $('form#billings').addClass   ('show');
     });
 
     //5: Purchase Controls
@@ -230,3 +213,17 @@ $(document).ready(function(e){
     };
     /////////////////////////////////////////////////////////////////////////
 });
+
+
+function addCommas(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
