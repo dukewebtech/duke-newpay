@@ -1,0 +1,32 @@
+    var ref = "";
+    $('.panel#vote-form button').on('click',   function(e){
+        const route = window.location.href;
+        const contest = route.substr(route.lastIndexOf('contest/') + 8, 5);
+        const contestant = route.substr(route.lastIndexOf('contest/')  + 19, 5);
+        const costPerVote = 50;
+        const user = Math.floor(Math.random()*90000)+(10000) ;
+
+        $('.sleek-cover #vote-form .loader').fadeIn ('slow') ;
+
+        votes  = votes < 4 ? 4 : votes; 
+        amount = ((votes * costPerVote) * 100)
+        payWithPaystack(user+'@elitemodels.com.ng', amount , 'NGN', function(r){
+            ref = r.reference;
+            $.ajax({
+                url: 'api/pay/verify/'+ref,
+                type:'POST',
+                contentType:false,
+                success: function 	  (response, status)     {
+                    if(response['status'] == 'success' )     {
+                        return voteContenstant(contest, contestant,  1 * 4 )   ;
+                    }
+                    if(response['status'] == 'failure' )     {
+                        $('.sleek-cover #vote-form .loader').fadeOut('slow')   ;
+                        swal({
+                            icon: "error",
+                            text: "Fail to verify the transaction!", ///////////
+                        });
+                    }
+                }
+            });
+        });    

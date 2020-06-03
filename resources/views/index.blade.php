@@ -15,6 +15,8 @@
 
     <script src="js/jquery.js"> </script>
     <script src="js/app.js"> </script>
+    <script src="js/vendors/paystack/paystackclient.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 
 <body>
@@ -32,18 +34,17 @@
 
                 @foreach($billers as $biller)
                 <div class="col-md-4 col-lg-4">
-                    <div class="card" style="color: rgb(255, 255, 255); background: rgb(238, 204, 17); display: flex;" data-service-type="{{$biller["serviceType"] }}" data-display-name="{{ $biller["displayName"] }}">
+                    <div class="card" style="{{ $biller["style_color"] }}" data-service-type="{{$biller["serviceType"] }}" data-display-name="{{ $biller["displayName"] }}">
                         <i class="fa fa-tv"></i>
                         <span>{{ $biller["displayName"] }}</span>
                     </div>
                 </div>
                 @endforeach
-
-
             </div>
         </div>
     </div>
-@include('form');
+
+    @include('form');
 
 </section>
 </body>

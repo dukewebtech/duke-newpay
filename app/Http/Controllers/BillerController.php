@@ -30,16 +30,19 @@ class BillerController extends Controller
                 "serviceType" => "dstv",
                 "displayName" => "DSTV Subscription",
                 "logo" => "",
+                "style_color" => "color: #09f; background: #fff"
             ],
             [
                 "serviceType" => "gotv",
                 "displayName" => "GOTV Subscription",
-                "logo" => ""
+                "logo" => "",
+                "style_color" => "color: #fff; background: #ec1"
             ],
             [
                 "serviceType" => "startimes",
                 "displayName" => "STARTIMES Subscription",
-                "logo" => ""
+                "logo" => "",
+                "style_color" => "color: #fff; background: #09f"
             ]
         ];
 

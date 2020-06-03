@@ -196,6 +196,9 @@ section.App {
     font-size: small;
     font-family:'Century-Thin';
 }
+.App form#provider button[disabled] {
+    background: #ccc !important;
+}
 .App .subscribe form#verified i {
     display: block;
     position: relative;

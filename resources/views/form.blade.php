@@ -22,42 +22,47 @@
             <div class="col-12 col-md-6  col-lg-6 ">
                 <i class="ion-ios-cash"></i> <input type="text" name="costs" placeholder="Amount" id="amount" readonly/>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12 col-md-12 col-lg-12">
-                <button type="button" name="continue" style="background: #09f">Continue</button>
-            </div>
-        </div>
-    </form>
-
-    <form id="billings">
-        <h2>Pay for <b data-provider="provider">DSTV</b> <span class="ion-ios-arrow-back float-right" id="back"></span></h2>
-
-        <h4>Billing Information</h4>
-        <div class="row">
-            <div class="col-12 col-md-12 col-lg-12">
+            <div class="col-12 col-md-6 col-lg-6">
                 <i class="ion-ios-card"></i> <input type="text" name="smartcard" placeholder="Smartcard"/>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12 col-md-6  col-lg-6 ">
-                <i class="ion-ios-person"></i> <input type="text" name="full_name" placeholder="Fullname"/>
+            <div class="col-12 col-md-12 col-lg-12">
+                <button type="button" name="continue" style="background: #09f" disabled="disabled">Continue</button>
             </div>
+        </div>
 
-            <div class="col-12 col-md-6  col-lg-6 ">
-                <i class="ion-ios-mail"></i> <input type="text" name="email" placeholder="E-mail"/>
+    </form>
+
+    <form id="billings">
+        <h2>Pay for <b data-provider="provider">DSTV</b> <span class="ion-ios-arrow-back float-right" id="back"></span></h2>
+
+        <h4>Verify Information</h4>
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <i class="ion-ios-card"></i> <input type="text" name="full_name" readonly placeholder="Fullname"/>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 col-md-6  col-lg-6 ">
-                <i class="ion-ios-call"></i> <input type="text" name="telephone" placeholder="Telephone"/>
+                <i class="ion-ios-person"></i> <input type="text" name="smartcard" readonly placeholder="Smart Card"/>
             </div>
 
             <div class="col-12 col-md-6  col-lg-6 ">
-                <i class="ion-ios-code"></i> <input type="text" name="reference" readonly placeholder="Reference" value=""/>
+                <i class="ion-ios-mail"></i> <input type="text" name="bouquet" readonly placeholder="Bouquet"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6  col-lg-6 ">
+                <i class="ion-ios-call"></i> <input type="text" name="duration" readonly placeholder="Duration"/>
+            </div>
+
+            <div class="col-12 col-md-6  col-lg-6 ">
+                <i class="ion-ios-code"></i> <input type="text" name="amount" readonly placeholder="Amount"/>
             </div>
         </div>
 
